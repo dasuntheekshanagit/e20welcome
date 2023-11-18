@@ -1,5 +1,5 @@
 body {
-    font-family: 'Courier New', monospace;
+    font-family: 'Courier New', Courier, monospace;
     margin: 0;
     padding: 0;
     display: flex;
@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #2b2b2b;
+    background-color:black;
 }
 
 .terminals {
@@ -15,10 +15,11 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    padding-top: 50px;
 }
 
 .terminal {
-    background-color: #2b2b2b;
+    background-color: #151515;
     color: #d0d0d0;
     width: 200px;
     border-radius: 5px;
@@ -62,7 +63,11 @@ body {
     padding: 3px 0;
 }
 
-/* Style for hover effect on buttons - not mandatory */
-.terminal-buttons:hover {
-    background-color: #FFBD44;
+.terminal-minimus{
+    background-color: #ffc100;
+    border-color: #9d802c;
+}
+.terminal-zoom{
+    background-color: #00d742;
+    border-color: #049931;
 }

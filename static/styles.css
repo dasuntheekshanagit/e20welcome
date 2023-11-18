@@ -4,6 +4,7 @@ body {
     flex-direction: column;
     height: 100vh;
     margin: 0;
+    background-color: black;
 }
 
 .head {
@@ -12,17 +13,26 @@ body {
     color: white;
     font-family: 'Courier New', Courier, monospace;
 }
+.head2 {
+    padding: 20px 20px 0 20px;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
 
 .terminal {
     flex: 1;
     overflow-y: auto; /* Show the scrollbar when necessary */
-    padding: 0 35px;
+    margin: 0 20px;
     background-color: black;
     color: white;
     font-family: 'Courier New', Courier, monospace;
     scrollbar-width: none; /* Firefox */
+    border-radius: 0 0 5px 5px;
+    border: 2px solid #333;
+    padding: 10px 20px 5px 20px;
+    background-color: #151515;
 }
-
 /* Hide scrollbar for webkit browsers */
 .terminal::-webkit-scrollbar {
     display: none;
@@ -35,9 +45,9 @@ body {
 }
 
 .terminal-input {
-    padding: 20px;
+    /* padding: 20px 20px 20px 35px;
     background-color: black;
-    display: flex;
+    display: flex; */
     align-items: center;
 }
 
@@ -47,11 +57,11 @@ body {
     margin-right: 5px;
 }
 
-#user-input {
+.user-input {
     flex-grow: 1;
     border: none;
-    background-color: black;
-    color: white;
+    background-color: transparent;
+    color: green;
     font-family: 'Courier New', Courier, monospace;
     font-size: inherit;
     outline: none;
@@ -73,16 +83,45 @@ body {
     margin-right: 5px;
     margin-left: 5px;
 }
-
+.terminal-minimus{
+    background-color: #ffc100;
+    border-color: #9d802c;
+}
+.terminal-zoom{
+    background-color: #00d742;
+    border-color: #049931;
+}
 .terminal-title {
     font-size: 14px;
-}
-.terminal-buttons:hover {
-    background-color: #FFBD44;
 }
 
 .message{
     border-radius: 0 0 5px 5px;
     border: 2px solid #333;
     padding: 10px 20px 5px 20px;
+    background-color: #151515;
+}
+.blinking-square {
+    width: 10px;
+    height: 15px;
+    display: inline-block;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+      40% {
+        opacity: 0;
+    }
+      50% {
+        opacity: 1;
+    }
+      90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

@@ -9,44 +9,31 @@
     <div class="head">
         <div class="terminal-header">
             <span class="terminal-buttons"></span>
+            <span class="terminal-buttons terminal-minimus"></span>
+            <span class="terminal-buttons terminal-zoom"></span>
             <span class="terminal-title">Welcome, {{ registration_number }}</span>
         </div>
         <div class="message">
-        <p >Hint: Explore every nook and cranny using commands like <i>"ls"</i> to check your surroundings, <i>"cd LOCATION"</i> to move to a different area, <i>"cd .."</i> to backtrack, and <i>"less PERSON"</i> to interact with persons/objects. And don't forget to check your current location with <i>"pwd"</i>.</p>
+            <p>Hint: Explore every nook and cranny using commands like <i>"ls"</i> to check your surroundings, <i>"cd LOCATION"</i> to move to a different area, <i>"cd .."</i> to backtrack, and <i>"less PERSON"</i> to interact with persons/objects. And don't forget to check your current location with <i>"pwd"</i>.<span class="blinking-square">_</span></p>
         </div>
     </div>
-    <div class="head">
+    <div class="head2">
         <div class="terminal-header">
             <span class="terminal-buttons"></span>
+            <span class="terminal-buttons terminal-minimus"></span>
+            <span class="terminal-buttons terminal-zoom"></span>
             <span class="terminal-title">Find the Ticket</span>
         </div>
     </div>
     <div class="terminal" id="terminal-output">
         <!-- Terminal output will be displayed here -->
     </div>
-    <div class="terminal-input">
-        <div id="user-input-prompt" class="user-prompt">$</div>
-        <input type="text" id="user-input" name="user_input" placeholder=" Enter command" required autocomplete="off">
-    </div>
-
+    <div><br/></div>
     <script>
-        document.getElementById('user-input').addEventListener('keyup', function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                let userInput = document.getElementById('user-input').value;
-                document.getElementById('user-input').value = '';
+        document.addEventListener('DOMContentLoaded', function () {
+            let terminalOutput = document.getElementById('terminal-output');
 
-                // Display user input prompt and command
-                let terminalOutput = document.getElementById('terminal-output');
-                let userPrompt = document.getElementById('user-input-prompt');
-                userPrompt.textContent = '$';
-                let userCommand = document.createElement('span');
-                userCommand.textContent = userInput;
-                userCommand.classList.add('user-prompt');
-                terminalOutput.appendChild(userPrompt.cloneNode(true));
-                terminalOutput.appendChild(userCommand);
-
-                // Make AJAX request to send user input to the server and get the response
+            function handleCommand(userInput) {
                 let xhr = new XMLHttpRequest();
                 xhr.open('POST', '/play_game', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -61,23 +48,70 @@
                             terminalOutput.appendChild(textContent);
 
                             if (outputLine.includes("Congratulations! You've won the game!")) {
-                                // Redirect to /wheel after 5 seconds if the winning message is received
                                 setTimeout(function() {
                                     window.location.href = '/wheel';
                                 }, 1000);
                             }
                         });
 
-                        // Add new line for the next input
                         terminalOutput.appendChild(document.createElement('br'));
+                        createNewInput();
                         terminalOutput.scrollTop = terminalOutput.scrollHeight;
-                        
                     } else {
                         console.log('Request failed. Error: ' + xhr.statusText);
                     }
                 };
                 xhr.send('registration_number={{ registration_number }}&user_input=' + encodeURIComponent(userInput));
             }
+
+            function createNewInput() {
+                let existingInput = document.querySelector('.terminal-input');
+                if (existingInput) {
+                    existingInput.querySelector('.user-input').disabled = true;
+                }
+                let existingBlinkingSquare = document.querySelector('.blinking-square');
+                if (existingBlinkingSquare) {
+                    existingBlinkingSquare.remove();
+                }
+
+
+                let terminalInput = document.createElement('div');
+                terminalInput.classList.add('terminal-input');
+
+                let userInputPrompt = document.createElement('div');
+                userInputPrompt.classList.add('user-prompt');
+                userInputPrompt.textContent = '$ ';
+
+                let blinkingSquare = document.createElement('span');
+                blinkingSquare.classList.add('blinking-square');
+                blinkingSquare.textContent = '_';
+
+                let userInput = document.createElement('input');
+                userInput.type = 'text';
+                userInput.classList.add('user-input');
+                //userInput.placeholder = ' Enter command ';
+                userInput.autocomplete = 'off';
+                userInput.required = true;
+
+                terminalInput.appendChild(userInputPrompt);
+               userInputPrompt.appendChild(blinkingSquare);
+                terminalInput.appendChild(userInput);
+
+                terminalOutput.appendChild(terminalInput);
+
+                userInput.addEventListener('keyup', function(event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                        let inputText = userInput.value.trim();
+                        if (inputText !== '') {
+                            handleCommand(inputText);
+                            userInput.disabled = true;
+                        }
+                    }
+                });
+            }
+
+            createNewInput();
         });
     </script>
 </body>

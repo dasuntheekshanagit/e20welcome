@@ -20,6 +20,7 @@ body {
     border-radius: 0 0 5px 5px;
     border: 2px solid #333;
     padding: 10px 20px 5px 20px;
+    background-color: #151515;
 }
 
 .terminal p {
@@ -59,7 +60,7 @@ body {
     margin-right: 10px; Add some margin between the input and the submit button*/
     flex-grow: 1;
     border: none;
-    background-color: black;
+    background-color: #151515;
     color: white;
     font-family: 'Courier New', Courier, monospace;
     font-size: inherit;
@@ -105,19 +106,33 @@ body {
 .blinking-square {
     width: 10px;
     height: 15px;
-    background-color: green;
     display: inline-block;
     animation: blink 1s infinite;
 }
 
 @keyframes blink {
     0% {
-        background-color: green;
+        opacity: 0;
     }
-    50% {
-        background-color: transparent;
+      40% {
+        opacity: 0;
+    }
+      50% {
+        opacity: 1;
+    }
+      90% {
+        opacity: 1;
     }
     100% {
-        background-color: green;
+        opacity: 0;
     }
+}
+
+.terminal-minimus{
+    background-color: #ffc100;
+    border-color: #9d802c;
+}
+.terminal-zoom{
+    background-color: #00d742;
+    border-color: #049931;
 }
