@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Terminus Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="head">
+        <h3>Welcome, {{ registration_number }}</h3>
+        <p>Hint: Explore every nook and cranny using commands like <i>"ls"</i> to check your surroundings, <i>"cd LOCATION"</i> to move to a different area, <i>"cd .."</i> to backtrack, and <i>"less PERSON"</i> to interact with persons/objects. And don't forget to check your current location with <i>"pwd"</i>.</p>
+    </div>
+    <div class="terminal" id="terminal-output">
+        <!-- Terminal output will be displayed here -->
+    </div>
+    <div class="terminal-input">
+        <div id="user-input-prompt" class="user-prompt">$</div>
+        <input type="text" id="user-input" name="user_input" placeholder=" Enter command" required autocomplete="off">
+    </div>
+
+    <script>
+        document.getElementById('user-input').addEventListener('keyup', function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                let userInput = document.getElementById('user-input').value;
+                document.getElementById('user-input').value = '';
+
+                // Display user input prompt and command
+                let terminalOutput = document.getElementById('terminal-output');
+                let userPrompt = document.getElementById('user-input-prompt');
+                userPrompt.textContent = '$';
+                let userCommand = document.createElement('span');
+                userCommand.textContent = userInput;
+                userCommand.classList.add('user-prompt');
+                terminalOutput.appendChild(userPrompt.cloneNode(true));
+                terminalOutput.appendChild(userCommand);
+
+                // Make AJAX request to send user input to the server and get the response
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/play_game', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        let response = JSON.parse(xhr.responseText);
+                        let gameOutput = response.game_output;
+
+                        gameOutput.forEach(function(outputLine) {
+                            let textContent = document.createElement('p');
+                            textContent.textContent = outputLine;
+                            terminalOutput.appendChild(textContent);
+
+                            if (outputLine.includes("Congratulations! You've won the game!")) {
+                                // Redirect to /wheel after 5 seconds if the winning message is received
+                                setTimeout(function() {
+                                    window.location.href = '/wheel';
+                                }, 1000);
+                            }
+                        });
+
+                        // Add new line for the next input
+                        terminalOutput.appendChild(document.createElement('br'));
+                        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                        
+                    } else {
+                        console.log('Request failed. Error: ' + xhr.statusText);
+                    }
+                };
+                xhr.send('registration_number={{ registration_number }}&user_input=' + encodeURIComponent(userInput));
+            }
+        });
+    </script>
+</body>
+</html>

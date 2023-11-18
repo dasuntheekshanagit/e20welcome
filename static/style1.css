@@ -1,0 +1,72 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #000;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.terminal-container {
+    padding: 20px;
+}
+
+.terminal {
+    border: 2px solid #00ff00;
+    padding: 20px;
+    background-color: #000;
+    margin-bottom: 20px;
+}
+
+.terminal p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Style for the user input prompt */
+.user-prompt {
+    color: green;
+    display: inline;
+}
+
+.terminal-input {
+    padding: 20px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+}
+
+#user-input-prompt {
+    color: green;
+    display: inline;
+    margin-right: 5px;
+}
+
+.user-input {
+   /* border: 1px solid #00ff00;
+    padding: 5px;
+    color: #fff;
+    background-color: transparent; /* Set background to transparent
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    outline: none;
+    width: calc(100% - 100px); /* Adjust the width to your preference 
+    margin-right: 10px; Add some margin between the input and the submit button*/
+    flex-grow: 1;
+    border: none;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: inherit;
+    outline: none;
+}
+
+/* input[type="submit"] {
+    background-color: #00ff00;
+    color: #000;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+#user-input::placeholder {
+    color: #888;
+} */

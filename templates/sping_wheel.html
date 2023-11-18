@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spinning Wheel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+<body>
+    <!-- <h2> Click to spin the wheel and claim the ticket!</h2> -->
+    <span class="arrow"></span>
+    <div class="container">
+        <div class="one">1</div>
+        <div class="two">2</div>
+        <div class="three">3</div>
+        <div class="four">4</div>
+        <div class="five">5</div>
+        <div class="six">6</div>
+        <div class="seven">7</div>
+        <div class="eight">8</div>
+    </div>
+    <h3 class="spin-text">Click to spin the wheel and claim the ticket!</h3>
+    <button id="spin">Spin</button>
+
+    <script>
+        let container = document.querySelector(".container");
+        let btn = document.getElementById("spin");
+
+        btn.onclick = function () {
+            fetch('/generate_number') // Assuming Flask route '/generate_number' provides the random number
+                .then(response => response.json())
+                .then(data => {
+                    let number = data.number;
+                    let rotateDegrees = (number - 1) * (-360 / 8); // Assuming 8 sections on the wheel
+                    let totalRotations = 2; // Total number of rotations
+                    let initialRotation = 720; // Initial rotation to make 2 full spins (360 * 2)
+
+                    container.style.transition = "transform 4s cubic-bezier(0, 0.8, 0.4, 1.5)"; // Smooth transition for rotation
+
+                    setTimeout(() => {
+                        container.style.transform = "rotate(" + (initialRotation + rotateDegrees) + "deg)";
+                    }, 50); // Delay to start the transition
+
+                    // Event listener for transition end
+                    container.addEventListener('transitionend', () => {
+                        document.getElementById('spin').innerText = number; // Show the selected number
+                        document.querySelector('.spin-text').style.display = 'none'; // Hide the instruction text
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

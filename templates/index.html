@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to E20!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal">
+            <p>Welcome, E20 Folks!</p>
+            <p>Welcome to the vibrant realm of the Department of Computer Engineering at the University of Peradeniya! We trust you've had a blast during your induction program. But hey, hold on to your hats, because we've got an exhilarating challenge awaiting you before the grand welcome party kicks off!</p>
+            <p>Your mission, should you choose to accept it, is to embark on an exhilarating quest to uncover the hidden ticket within our department. But fret not! No need for hacking the campus network; this adventure lies within our building itself.</p>
+            <p>Explore different spots within the department where clues are cleverly hidden. Follow these clues as they lead you closer to discovering the coveted ticket. Remember, the thrill is in the journey, so use your wit, Linux commands, and problem-solving skills to uncover the hidden treasure before the welcome party commences!</p>
+            <p>Gear up for a fun-filled adventure and seek out the ticket before joining us for an unforgettable welcome party. Best of luck on your quest!</p>
+            <p>-- From E19s --</p>
+        </div>
+        <div class="terminal-input">
+            <form action="/" method="post">
+                <p>Enter Your E Number to Start</p>
+                <div id="user-input-prompt" class="user-prompt">$</div>
+                <input type="text" name="registration_number" placeholder="E/20/"  class="user-input" required>
+                <!-- <input type="submit" value="Start Game"> -->
+            </form>
+        </div>
+    </div>
+</body>
+</html>

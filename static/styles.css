@@ -1,0 +1,58 @@
+/* Add your styles below */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+.head {
+    padding: 20px;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.terminal {
+    flex: 1;
+    overflow-y: auto; /* Show the scrollbar when necessary */
+    padding: 20px;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for webkit browsers */
+.terminal::-webkit-scrollbar {
+    display: none;
+}
+
+/* Style for the user input prompt */
+.user-prompt {
+    color: green;
+    display: inline;
+}
+
+.terminal-input {
+    padding: 20px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+}
+
+#user-input-prompt {
+    color: green;
+    display: inline;
+    margin-right: 5px;
+}
+
+#user-input {
+    flex-grow: 1;
+    border: none;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: inherit;
+    outline: none;
+}
