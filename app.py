@@ -133,7 +133,7 @@ def index():
             serialized_player = serialize_player(player)
             session['player'] = serialized_player
             return render_template('game_interface.html', registration_number=registration_number)
-    return render_template('index.html')
+    return render_template('index.html', winners=winners)
 
 
 @app.route('/play_game', methods=['POST'])
@@ -189,6 +189,11 @@ def generate_number():
 @app.route('/wheel', methods=['GET'])
 def wheel():
     return render_template('sping_wheel.html')
+
+# Route to generate a random number
+@app.route('/teams', methods=['GET'])
+def teams():
+    return render_template('teams.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

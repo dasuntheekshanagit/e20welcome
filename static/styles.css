@@ -16,7 +16,7 @@ body {
 .terminal {
     flex: 1;
     overflow-y: auto; /* Show the scrollbar when necessary */
-    padding: 20px;
+    padding: 0 35px;
     background-color: black;
     color: white;
     font-family: 'Courier New', Courier, monospace;
@@ -55,4 +55,34 @@ body {
     font-family: 'Courier New', Courier, monospace;
     font-size: inherit;
     outline: none;
+}
+
+.terminal-header {
+    background-color: #333;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+}
+
+.terminal-buttons {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #FF605C;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.terminal-title {
+    font-size: 14px;
+}
+.terminal-buttons:hover {
+    background-color: #FFBD44;
+}
+
+.message{
+    border-radius: 0 0 5px 5px;
+    border: 2px solid #333;
+    padding: 10px 20px 5px 20px;
 }

@@ -7,8 +7,19 @@
 </head>
 <body>
     <div class="head">
-        <h3>Welcome, {{ registration_number }}</h3>
-        <p>Hint: Explore every nook and cranny using commands like <i>"ls"</i> to check your surroundings, <i>"cd LOCATION"</i> to move to a different area, <i>"cd .."</i> to backtrack, and <i>"less PERSON"</i> to interact with persons/objects. And don't forget to check your current location with <i>"pwd"</i>.</p>
+        <div class="terminal-header">
+            <span class="terminal-buttons"></span>
+            <span class="terminal-title">Welcome, {{ registration_number }}</span>
+        </div>
+        <div class="message">
+        <p >Hint: Explore every nook and cranny using commands like <i>"ls"</i> to check your surroundings, <i>"cd LOCATION"</i> to move to a different area, <i>"cd .."</i> to backtrack, and <i>"less PERSON"</i> to interact with persons/objects. And don't forget to check your current location with <i>"pwd"</i>.</p>
+        </div>
+    </div>
+    <div class="head">
+        <div class="terminal-header">
+            <span class="terminal-buttons"></span>
+            <span class="terminal-title">Find the Ticket</span>
+        </div>
     </div>
     <div class="terminal" id="terminal-output">
         <!-- Terminal output will be displayed here -->
