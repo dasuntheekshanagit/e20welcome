@@ -1,54 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Spinning Wheel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style2.css') }}"
+    />
+  </head>
+  <body>
     <!-- <h2> Click to spin the wheel and claim the ticket!</h2> -->
     <span class="arrow"></span>
-    <div class="container">
-        <div class="one">1</div>
-        <div class="two">2</div>
-        <div class="three">3</div>
-        <div class="four">4</div>
-        <div class="five">5</div>
-        <div class="six">6</div>
-        <div class="seven">7</div>
-        <div class="eight">8</div>
-    </div>
+    <div class="container"></div>
     <h3 class="spin-text">Click to spin the wheel and claim the ticket!</h3>
     <button id="spin">Spin</button>
+    <img class="fire" src="../static/fireworks.gif" alt="" />
+    <div class="pop">
+      <p>Your Team Number is</p>
+      <span></span>
+    </div>
 
     <script>
-        let container = document.querySelector(".container");
-        let btn = document.getElementById("spin");
+      let container = document.querySelector(".container");
+      let btn = document.getElementById("spin");
 
-        btn.onclick = function () {
-            fetch('/generate_number') // Assuming Flask route '/generate_number' provides the random number
-                .then(response => response.json())
-                .then(data => {
-                    let number = data.number;
-                    let rotateDegrees = (number - 1) * (-360 / 8); // Assuming 8 sections on the wheel
-                    let totalRotations = 2; // Total number of rotations
-                    let initialRotation = 720; // Initial rotation to make 2 full spins (360 * 2)
+      const sections = [
+        {
+          color: "#3f51b5",
+          value: 1,
+        },
+        {
+          color: "#ff9800",
+          value: 2,
+        },
+        {
+          color: "#e91e63",
+          value: 3,
+        },
+        {
+          color: "#4caf50",
+          value: 4,
+        },
+        {
+          color: "#009688",
+          value: 5,
+        },
+        {
+          color: "#795548",
+          value: 6,
+        },
+        {
+          color: "#9c27b0",
+          value: 7,
+        },
+        {
+          color: "#f44336",
+          value: 8,
+        },
+        {
+          color: "#9c27b0",
+          value: 9,
+        },
+        {
+          color: "#f44336",
+          value: 10,
+        },
+      ];
 
-                    container.style.transition = "transform 4s cubic-bezier(0, 0.8, 0.4, 1.5)"; // Smooth transition for rotation
+      const angle = 360 / sections.length;
+      const h = container.getBoundingClientRect().height / 2;
+      const w = container.getBoundingClientRect().width;
 
-                    setTimeout(() => {
-                        container.style.transform = "rotate(" + (initialRotation + rotateDegrees) + "deg)";
-                    }, 50); // Delay to start the transition
+      sections.forEach((sec, index) => {
+        const element = document.createElement("div");
+        element.style.background = sec.color;
+        element.innerText = sec.value;
+        element.style.transform = `translateX(-50%) rotate(${
+          angle * index
+        }deg)`;
+        element.style.width =
+          (Math.tan((angle * Math.PI) / 360) * h * 2 * 100) / w + "%";
+        container.append(element);
+      });
 
-                    // Event listener for transition end
-                    container.addEventListener('transitionend', () => {
-                        document.getElementById('spin').innerText = number; // Show the selected number
-                        document.querySelector('.spin-text').style.display = 'none'; // Hide the instruction text
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        }
+      btn.onclick = function () {
+        fetch("/generate_number") // Assuming Flask route '/generate_number' provides the random number
+          .then((response) => response.json())
+          .then((data) => {
+            let number = data.number;
+            let rotateDegrees = (number - 1) * (-360 / sections.length); // Assuming 8 sections on the wheel
+            let totalRotations = 2; // Total number of rotations
+            let initialRotation = 720; // Initial rotation to make 2 full spins (360 * 2)
+
+            container.style.transition =
+              "transform 4s cubic-bezier(0, 0.8, 0.4, 1.5)"; // Smooth transition for rotation
+
+            setTimeout(() => {
+              container.style.transform =
+                "rotate(" + (initialRotation + rotateDegrees) + "deg)";
+            }, 50); // Delay to start the transition
+
+            // Event listener for transition end
+            container.addEventListener("transitionend", () => {
+              setTimeout(() => {
+                document.querySelector(".spin-text").style.display = "none"; // Hide the instruction text
+                const pop = document.querySelector(".pop");
+                const gno = document.querySelector(".pop span");
+                const fire = document.querySelector(".fire");
+                gno.innerText = number;
+                pop.classList.add("visible");
+                fire.classList.add("visible");
+              }, 500);
+            });
+          })
+          .catch((error) => console.error("Error:", error));
+      };
     </script>
-</body>
+  </body>
 </html>
