@@ -1,12 +1,50 @@
 from flask import Flask, render_template, request, session, jsonify
 import pickle
 import random
+import csv
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
 # The list to store winners by registration number
 winners = []
+groups = {
+    1: [6, 3, []],
+    2: [6, 3, []],
+    3: [7, 2, []],
+    4: [7, 2, []],
+    5: [7, 2, []],
+    6: [7, 2, []],
+    7: [7, 2, []],
+    8: [7, 2, []],
+    9: [7, 2, []],
+    10: [7, 2, []]
+}
+data = {}
+girls = 0
+boys = 0
+
+def read_data():
+    global girls, boys, data
+    with open('data.csv', mode='r') as file:
+        # Create a CSV reader object
+        reader = csv.reader(file)
+
+        # Skip the header row
+        next(reader)
+
+        # Loop through each row in the CSV file
+        for row in reader:
+            # Extract the registration number, name, and gender from the row
+            reg_no, name, gender = row
+            if gender == 'M':
+                boys += 1
+            else:
+                girls += 1
+
+            # Add the data to the dictionary
+            data[reg_no] = {'name': name, 'gender': gender}
+    print("Boys:", boys, "Girls:", girls)
 
 class Location:
     def __init__(self, name, description, character=None, clue=None):
@@ -78,6 +116,8 @@ class Game:
 class Player:
     def __init__(self, registration_number):
         self.registration_number = registration_number
+        self.name = data[registration_number]["name"]
+        self.gender = data[registration_number]["gender"]
         self.game = initialize_game()
 
 def initialize_game():
@@ -129,10 +169,11 @@ def index():
         if registration_number in winners:
             return "You've already won the game!"
         else:
-            player = Player(registration_number)
-            serialized_player = serialize_player(player)
-            session['player'] = serialized_player
-            return render_template('game_interface.html', registration_number=registration_number)
+            if registration_number in data:
+                player = Player(registration_number)
+                serialized_player = serialize_player(player)
+                session['player'] = serialized_player
+                return render_template('game_interface.html', registration_number=registration_number, name=player.name)
     return render_template('index.html', winners=winners)
 
 
@@ -178,10 +219,26 @@ def play_game():
     session['player'] = serialized_player
     #return render_template('game_interface.html', registration_number=player.registration_number, game_output=game_output)
     return jsonify({'game_output': game_output})
+
 # Route to generate a random number
 @app.route('/generate_number', methods=['GET'])
 def generate_number():
-    num = random.randint(1, 9)
+    serialized_player = session.get('player')
+
+    if serialized_player is None:
+        return "Session expired. Please start again."
+
+    player = deserialize_player(serialized_player)
+
+    num = random.randint(1, 10)
+    if player.gender == 'M':
+        gender = 0
+    else:
+        gender = 1
+    while not groups[num][gender]:
+        num = random.randint(1, 10)
+    groups[num][gender] -= 1
+    groups[num][2].append(player.registration_number)
     print(num)
     return jsonify({'number': num})
 
@@ -193,7 +250,8 @@ def wheel():
 # Route to generate a random number
 @app.route('/teams', methods=['GET'])
 def teams():
-    return render_template('teams.html')
+    return render_template('teams.html', groups=groups)
 
 if __name__ == '__main__':
+    read_data()
     app.run(debug=True)
