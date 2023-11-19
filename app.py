@@ -207,7 +207,7 @@ def play_game():
     elif "cd " in user_input:
         game_output.append(game.move(user_input.split()[-1]))
     else:
-        game_output.append("Invalid command. Available actions: ['cd ..', 'ls', 'pwd', 'less']")
+        game_output.append("Invalid command. Available actions: ['cd ..', 'ls', 'pwd', 'less', 'cls']")
     
     # Check if the player has won the game
     if game.current_location.name == "Top_Floor_Lab":
