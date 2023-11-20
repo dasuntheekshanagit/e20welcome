@@ -127,58 +127,126 @@ def initialize_game():
     outside = Location("Outside", 
         "Hey there Hunter,\n Welcome to the department's doorstep! Exciting times await you inside. The key to winning lies in uncovering hidden clues scattered throughout. Chat up people, tinker with objects; they'll drop hints. Your ticket to victory? Explore the department, unravel the hidden clues, and they'll guide you straight to triumph.\n P.S. The first clue awaits in the welcome letter. \nGood luck!",
         "Welcome Letter",
-        "Welcome, Hunter! To embark on your victorious quest, start by exploring the domain of IBM computers or the lair of the technical officer at the helpdesk. Discover clues tucked within the art, unravel whispers from the community, and listen for melodies in the music room. Uncover the elusive ticket concealed within our vibrant domain!")
-    lobby = Location("Lobby",
-        "As you step through the grand entrance, the foyer unfolds, welcoming you with polished marble floors and towering ceilings. This area acts as the gateway to a labyrinth of knowledge, adorned with informative displays and a plaque welcoming visitors to the institute. The foyer leads to various departments and holds the first clue to commence your thrilling hunt.", 
-        "Mr. X", 
-        "Seek Mr. X, keeper of knowledge profound. His guidance shall illuminate the way to another sage, one of networking's hound.")
-    networking_lab = Location("Networking Lab", 
-        "Ascending to the first floor, the ambiance changes to the hum of technology. The Networking Lab, a haven for connectivity experiments, is filled with rows of computers and arrays of wires, offering glimpses into the realm of networking and digital interconnection. Tucked amidst the devices that power the digital world.", 
-        "Dr. Asitha", 
-        "In the realm of networks, Dr. Asitha bestows. Seek his wisdom about connections and nodes. His hint leads to another, where technology flows.")
-    lab2 = Location("Lab 2", 
-        "Lab2, a room filled with prototype models, microcontrollers, and intricate circuitry spread across workstations.", 
-        "Kavindu", 
-        "The third clue guides you to the MakerSpace on the 3rd floor.")
-    discussion_room = Location("Discussion Room", 
-        "You are in Lab1 where Kavindu is an instructor.", 
-        "Kavindu", 
-        "The third clue guides you to the MakerSpace on the 3rd floor.")    
-    lab1 = Location("Lab1", 
-        "You are in Lab1 where Kavindu is an instructor.", 
-        "Kavindu", 
-        "The third clue guides you to the MakerSpace on the 3rd floor.")
-    escal = Location("ESCAL", 
-        "Enter the ESCAL Room, a futuristic space resonating with the clinks of metal and the whirring of machinery. This innovative hub houses cutting-edge tools and resources.", 
-        "Robot", 
-        "The fourth clue indicates the top floor lab where Prof. Roshan is.")
-    top_floor_lab = Location("Top_Floor_Lab", 
-        "You are in the top floor lab with Prof. Roshan.", 
-        "Prof. Roshan", 
-        "Congratulations! You found the ticket!")
-
+        "Greetings, knowledge seekers! Your journey begins on the ground floor, where the Open Lab and Front desk is situated. Sahan Nimantha is in the Open Lab and Mr. X is at the front desk are your guides. Choose your path wisely!")
+    
+    ground_floor = Location("Ground Floor",
+                            "The ground floor welcomes you to the heart of the computer engineering department. Here, you'll find the Front Desk, a hub of general information, and the Open Lab, a dynamic space for study and discussions. The air is buzzing with curiosity and the hum of engaged minds",
+                            )
+    
+    first_floor = Location("First Floor",
+                           " As you ascend to the first floor, you step into a realm where knowledge takes tangible form. Lab 2 is a space where programming labs come to life, filled with the energy of practical application. The Computer Networking Lab, adjacent to it, is a gateway to the world of data transfer and communication."
+                          )
+   
+    second_floor = Location("Second Floor",
+                            "The second floor unfolds with the Electronics Lab, a haven for hardware enthusiasts where circuits, wires, and hardware dreams come alive. Adjacent to it is the Discussion Room, a collaborative space where ideas flow freely, creating an atmosphere of shared knowledge.")
+   
+    third_floor = Location("Third Floor",
+                           "On the third floor, creativity blossoms in the ESCAL Makerspace. This vibrant space is a playground for innovation, equipped with tools for 3D printing, soldering, and collaborative projects. Here, students bring their ideas to life.")
+   
+    fourth_floor = Location("Fourth Floor/ Top Floor",
+                            "On fourth floor hosts computer labs and the Server Room, a mysterious space filled with the rhythmic hum of servers. It's a realm where data flows, and secrets are concealed within the screens of computers.")
+   
+    front_desk = Location("Front Desk",
+                          "Welcome, explorer! If you lean towards technology, venture into the department. Alternatively, for general information, stay on the ground floor",
+                        "Mr.X",
+                        "If you're drawn to the practical side of computer engineering, where labs come to life, ascend the stairs with eager might, Kavindu's wisdom will guide your quest; listen well to what he suggests."
+                        )
+    
+    open_lab = Location("Open Lab",
+                        "In this open space, discussions thrive.",
+                        "Sahan Nimantha",
+                        "Ah, welcome! The Open Lab is a vibrant space for discussions and study, filled with the hum of curiosity. Connect the dots in networking's spree, where Dr. Asitha molds minds like a sea. In the lab of networks, your clue awaits; unravel the code, open the gates")               
+                   
+    
+    lab2 = Location("Lab2",      
+                    "If you're drawn to the practical side of computer engineering, this is where programming labs come to life",
+                    "Mr. Kavindu",
+                    "Unleash your inner hardware enthusiast. Your journey continues in a space where circuits, wires, and hardware dreams are brought to life")
+    
+    
+    networking_lab = Location("Networking Lab",
+                            "Connect with the world of data transfer and communication. This is the place where networking insights unfold and discussions about routers and switches take.",
+                            "Dr. Asitha",
+                            "For collaborative minds and focused discussions, ascend to the floor where ideas flow freely. Seek the place where the power of words and thoughts converge.")
+    
+    electronics_lab = Location("Electronics Lab",
+                               "In the Electronics Lab, hardware dreams come to life and circuits weave tales!",
+                               "Dr.Kamalanath",
+                               "Embark on a journey of creativity and innovation. A robotic ally awaits in a space where projects come to life. Head to the floor where 3D printing, soldering, and collaboration thrive")
+    
+    discussion_room = Location("Discussion Room",
+                               "The Discussion Room unfolds as a sanctuary for collaborative minds, where ideas dance in the air.",
+                               "Dr.Isuru",
+                               "Welcome! The Discussion Room fosters an atmosphere for discussions and focused study. As you explore collaborative minds, In the makerspace, where creativity blooms, a robotic ally awaits. Engage in conversation, unlocking the next chapter in your journey")
+         
+    makerspace = Location("Makerspace",
+                          "In the makerspace, where machines breathe, creativity blooms amidst 3D printing, soldering, and collaborative projects and many more",
+                          "Robot",
+                          "Beep boop!. Climb the stairs to the fourth floor,to the server's abode, where a computer hums in binary code. Decode the message, a clue to unfold, leading you to the ticket of stories untold")
+    
+    
+    top_floor_lab = Location("Top Floor Lab",
+                             "If you have an inclination towards the hands-on aspects of computer engineering, this is the space where programming labs come to life.",
+                             "Dr.Damayanthi",
+                             "At the pinnacle of knowledge, I await your arrival. Engage in conversation, and the grand prize shall be revealed by Professor Ragel")
+    
+    
+    server_room = Location("Server Room",
+                           "This is where servers hum in rhythmic unity and the place where data flows, ",
+                           "Server",
+                           "Within the rhythmic hum of servers, a computer screen holds the key. Decode the cryptic message to unveil the path to the Dr.Damayanthi, where your last clue awaits")
+                               
+                   
+    prof_ragel = Location("Ground Floor",
+                          "The ground floor welcomes you to the heart of the computer engineering department. Here, you'll find the Front Desk, a hub of general information, and the Open Lab, a dynamic space for study and discussions. The air is buzzing with curiosity and the hum of engaged minds",
+                          "Prof. Ragel",
+                          "Congratulations! You've won the game!")                     
+                   
+                   
+                   
+                   
+                          
     # Add locations to the game
     game.add_location(outside)
-    game.add_location(lobby)
+    game.add_location(ground_floor)
+    game.add_location(first_floor)
+    game.add_location(second_floor)
+    game.add_location(third_floor)
+    game.add_location(fourth_floor)
+    game.add_location(front_desk)
+    game.add_location(open_lab)
+    game.add_location(lab2)
     game.add_location(networking_lab)
-    game.add_location(lab1)
-    game.add_location(escal)
+    game.add_location(electronics_lab)
+    game.add_location(discussion_room)
+    game.add_location(makerspace)
     game.add_location(top_floor_lab)
+    game.add_location(server_room)
+    game.add_location(prof_ragel)
 
     # Set paths between locations
-    outside.add_path("lobby", lobby)
-    lobby.add_path("networking_lab", networking_lab)
-    lobby.add_path("outside", outside)
-    networking_lab.add_path("lab1", lab1)
-    networking_lab.add_path("lobby", lobby)
-    lab1.add_path("makerspace", escal)
-    lab1.add_path("networking_lab", networking_lab)
-    escal.add_path("top_floor_lab", top_floor_lab)
-    escal.add_path("lab1", lab1)
-    top_floor_lab.add_path("makerspave", escal)
+    outside.add_path("Front Desk", front_desk)
+    outside.add_path("Ground Floor", ground_floor)
+    ground_floor.add_path("Front Desk",front_desk)
+    ground_floor.add_path("Open Lab",open_lab)
+    front_desk.add_path("First Floor", first_floor)
+    open_lab.add_path("First Floor", first_floor)
+    first_floor.add_path("Lab 2",lab2)
+    first_floor.add_path("Networking Lab", networking_lab)
+    lab2.add_path("Second Floor", second_floor)
+    networking_lab.add_path("Second Floor", second_floor)
+    second_floor.add_path("Electronics Lab",electronics_lab)
+    second_floor.add_path("Discussion Room", discussion_room)
+    electronics_lab.add_path("Third Floor", third_floor)
+    discussion_room.add_path("Third Floor", third_floor)
+    third_floor.add_path("ESCAL Makerspace", makerspace)
+    makerspace.add_path("Fourth Floor", fourth_floor)
+    fourth_floor.add_path("Server Room", server_room)
+    fourth_floor.add_path("Top Floor Lab",top_floor_lab)
+    fourth_floor.add_path("Prof. Ragel",prof_ragel)
 
     # Set the initial location
-    game.set_current_location("Outside")
+    game.set_current_location("First Floor",)
 
     return game
 
