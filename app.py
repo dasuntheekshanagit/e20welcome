@@ -88,7 +88,7 @@ class Game:
     def interact_with_character(self):
         character = self.current_location.get_character()
         if character:
-            return f"You interact with {character}...\n{character} gives you a clue: '{self.current_location.get_clue()}'"
+            return f"{self.current_location.get_clue()}"
         else:
             return f"You are in {self.current_location.name}. No character here."
 
@@ -124,19 +124,45 @@ def initialize_game():
     game = Game()
 
     # Create locations
-    outside = Location("Outside", "You are outside the building.")
-    lobby = Location("Lobby", "You are in the lobby.", "Mr. X", "The first clue leads you to the Networking lab on the 2nd floor.")
-    networking_lab = Location("Networking_Lab", "You are in the Networking lab.", None, "The second clue directs you to Lab1 on the 1st floor.")
-    lab1 = Location("Lab1", "You are in Lab1 where Kavindu is an instructor.", "Kavindu", "The third clue guides you to the MakerSpace on the 3rd floor.")
-    makerspace = Location("MakerSpace", "You are in the MakerSpace with a robot.", "Robot", "The fourth clue indicates the top floor lab where Prof. Roshan is.")
-    top_floor_lab = Location("Top_Floor_Lab", "You are in the top floor lab with Prof. Roshan.", "Prof. Roshan", "Congratulations! You found the ticket!")
+    outside = Location("Outside", 
+        "Hey there Hunter,\n Welcome to the department's doorstep! Exciting times await you inside. The key to winning lies in uncovering hidden clues scattered throughout. Chat up people, tinker with objects; they'll drop hints. Your ticket to victory? Explore the department, unravel the hidden clues, and they'll guide you straight to triumph.\n P.S. The first clue awaits in the welcome letter. \nGood luck!",
+        "Welcome Letter",
+        "Welcome, Hunter! To embark on your victorious quest, start by exploring the domain of IBM computers or the lair of the technical officer at the helpdesk. Discover clues tucked within the art, unravel whispers from the community, and listen for melodies in the music room. Uncover the elusive ticket concealed within our vibrant domain!")
+    lobby = Location("Lobby",
+        "As you step through the grand entrance, the foyer unfolds, welcoming you with polished marble floors and towering ceilings. This area acts as the gateway to a labyrinth of knowledge, adorned with informative displays and a plaque welcoming visitors to the institute. The foyer leads to various departments and holds the first clue to commence your thrilling hunt.", 
+        "Mr. X", 
+        "Seek Mr. X, keeper of knowledge profound. His guidance shall illuminate the way to another sage, one of networking's hound.")
+    networking_lab = Location("Networking Lab", 
+        "Ascending to the first floor, the ambiance changes to the hum of technology. The Networking Lab, a haven for connectivity experiments, is filled with rows of computers and arrays of wires, offering glimpses into the realm of networking and digital interconnection. Tucked amidst the devices that power the digital world.", 
+        "Dr. Asitha", 
+        "In the realm of networks, Dr. Asitha bestows. Seek his wisdom about connections and nodes. His hint leads to another, where technology flows.")
+    lab2 = Location("Lab 2", 
+        "Lab2, a room filled with prototype models, microcontrollers, and intricate circuitry spread across workstations.", 
+        "Kavindu", 
+        "The third clue guides you to the MakerSpace on the 3rd floor.")
+    discussion_room = Location("Discussion Room", 
+        "You are in Lab1 where Kavindu is an instructor.", 
+        "Kavindu", 
+        "The third clue guides you to the MakerSpace on the 3rd floor.")    
+    lab1 = Location("Lab1", 
+        "You are in Lab1 where Kavindu is an instructor.", 
+        "Kavindu", 
+        "The third clue guides you to the MakerSpace on the 3rd floor.")
+    escal = Location("ESCAL", 
+        "Enter the ESCAL Room, a futuristic space resonating with the clinks of metal and the whirring of machinery. This innovative hub houses cutting-edge tools and resources.", 
+        "Robot", 
+        "The fourth clue indicates the top floor lab where Prof. Roshan is.")
+    top_floor_lab = Location("Top_Floor_Lab", 
+        "You are in the top floor lab with Prof. Roshan.", 
+        "Prof. Roshan", 
+        "Congratulations! You found the ticket!")
 
     # Add locations to the game
     game.add_location(outside)
     game.add_location(lobby)
     game.add_location(networking_lab)
     game.add_location(lab1)
-    game.add_location(makerspace)
+    game.add_location(escal)
     game.add_location(top_floor_lab)
 
     # Set paths between locations
@@ -145,11 +171,11 @@ def initialize_game():
     lobby.add_path("outside", outside)
     networking_lab.add_path("lab1", lab1)
     networking_lab.add_path("lobby", lobby)
-    lab1.add_path("makerspace", makerspace)
+    lab1.add_path("makerspace", escal)
     lab1.add_path("networking_lab", networking_lab)
-    makerspace.add_path("top_floor_lab", top_floor_lab)
-    makerspace.add_path("lab1", lab1)
-    top_floor_lab.add_path("makerspave", makerspace)
+    escal.add_path("top_floor_lab", top_floor_lab)
+    escal.add_path("lab1", lab1)
+    top_floor_lab.add_path("makerspave", escal)
 
     # Set the initial location
     game.set_current_location("Outside")
@@ -198,7 +224,6 @@ def play_game():
         item = user_input.split(" ", 1)[-1]
         character = game.current_location.get_character()
         if character and item.lower() == character.lower():
-            game_output.append(f"You interact with {character}...")
             game_output.append(game.interact_with_character())
         else:
             game_output.append(f"You can't interact with {item}.")
