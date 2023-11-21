@@ -345,6 +345,11 @@ def wheel():
 def teams():
     return render_template('teams.html', groups=groups)
 
+@app.route('/clear_session', methods=['GET'])
+def clear_session():
+    session.clear()
+    return "Session cleared"
+
 if __name__ == '__main__':
     read_data()
     app.run(debug=True)
