@@ -240,25 +240,39 @@ def initialize_game():
     game.add_location(prof_ragel)
 
     # Set paths between locations
-    outside.add_path("front_desk", front_desk)
+    #outside.add_path("front_desk", front_desk)
     outside.add_path("ground_floor", ground_floor)
+    
     ground_floor.add_path("front_desk",front_desk)
     ground_floor.add_path("open_lab",open_lab)
+    ground_floor.add_path("outside", outside)
+
     front_desk.add_path("first_floor", first_floor)
     open_lab.add_path("first_floor", first_floor)
+
     first_floor.add_path("lab 2",lab2)
     first_floor.add_path("networking_lab", networking_lab)
+    first_floor.add_path("ground_floor", ground_floor)
+
     lab2.add_path("second_floor", second_floor)
     networking_lab.add_path("second_floor", second_floor)
+
     second_floor.add_path("electronics_lab",electronics_lab)
     second_floor.add_path("discussion_room", discussion_room)
+    second_floor.add_path("first_floor", first_floor)
+
     electronics_lab.add_path("third_floor", third_floor)
     discussion_room.add_path("third_floor", third_floor)
+
     third_floor.add_path("makerspace", makerspace)
+    third_floor.add_path("second_floor", second_floor)
+
     makerspace.add_path("fourth_floor", fourth_floor)
+
     fourth_floor.add_path("server_room", server_room)
     fourth_floor.add_path("top_floor_lab",top_floor_lab)
     fourth_floor.add_path("ground_floor_office",prof_ragel)
+    fourth_floor.add_path("third_floor", third_floor)
 
     # Set the initial location
     #game.set_current_location("First Floor",)
@@ -276,7 +290,7 @@ def index():
     if request.method == 'POST':
         registration_number = request.form['registration_number']
         if registration_number in winners:
-            return "You've already won the game!"
+            return render_template('teams.html', groups=groups)
         else:
             if registration_number in data:
                 player = Player(registration_number)
