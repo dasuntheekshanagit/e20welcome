@@ -57,6 +57,12 @@
                                         window.location.href = '/wheel';
                                     }, 1000);
                                 }
+
+                                if (outputLine.includes("ERROE 505")) {
+                                    setTimeout(function() {
+                                        window.location.href = '/';
+                                    }, 1000);
+                                }
                             });
 
                             terminalOutput.appendChild(document.createElement('br'));

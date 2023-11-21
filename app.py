@@ -47,6 +47,11 @@ def read_data():
             data[reg_no] = {'name': name, 'gender': gender}
     print("Boys:", boys, "Girls:", girls)
 
+def log(logdata):
+    with open('log.txt', mode='a+') as file:
+        file.write(logdata+"\n")
+
+
 class Location:
     def __init__(self, name, description, character=None, clue=None):
         self.name = name
@@ -93,17 +98,19 @@ class Game:
         else:
             return f"You are in {self.current_location.name}. No character here."
 
-    def move(self, direction, current_location):
+    def move(self, direction, current_location, previous_path):
         if direction == "..":
-            if len(self.previous_path) > 1:
-                path = self.previous_path.pop()
+            print(previous_path)
+            if self.locations[current_location].name == "outside":
+                return -1
+            if len(previous_path) > 1:
+                path = previous_path.pop()
+                path = previous_path.pop()
                 return path
                 #self.set_current_location(path)
                 #return self.print_current_description()
-            if self.locations[current_location].name == "outside":
-                return 1
-            else:
-                return -1
+            previous_path.append("outside")
+            return -1
                 #self.set_current_location("Outside")
                 #return self.print_current_description()
         elif direction in self.locations[current_location].paths:
@@ -123,13 +130,15 @@ class Player:
         self.name = data[registration_number]["name"]
         self.gender = data[registration_number]["gender"]
         self.current_location = "outside"
+        self.previous_path = ["outside"]
     
     def move(self, direction):
-        path = game.move(direction, self.current_location)
+        path = game.move(direction, self.current_location, self.previous_path)
         if path == -2:
             return "Invalid direction"
         elif path == -1:
             return "Cannot go back from here."
+        self.previous_path.append(path)
         self.current_location = path
         return game.print_current_description(path)
 
@@ -163,7 +172,7 @@ def initialize_game():
    
     front_desk = Location("front_desk",
                           "Welcome, explorer! If you lean towards technology, venture into the department. Alternatively, for general information, stay on the ground floor",
-                        "Mr.X",
+                        "Mr. X",
                         "If you're drawn to the practical side of computer engineering, where labs come to life, ascend the stairs with eager might, Kavindu's wisdom will guide your quest; listen well to what he suggests."
                         )
     
@@ -216,11 +225,7 @@ def initialize_game():
                           "The ground floor welcomes you to the heart of the computer engineering department. Here, you'll find the Front Desk, a hub of general information, and the Open Lab, a dynamic space for study and discussions. The air is buzzing with curiosity and the hum of engaged minds",
                           "Prof. Ragel",
                           "Congratulations! You've won the game!")                     
-                   
-                   
-                   
-                   
-                          
+                                    
     # Add locations to the game
     game.add_location(outside)
     game.add_location(ground_floor)
@@ -250,7 +255,7 @@ def initialize_game():
     front_desk.add_path("first_floor", first_floor)
     open_lab.add_path("first_floor", first_floor)
 
-    first_floor.add_path("lab 2",lab2)
+    first_floor.add_path("lab2",lab2)
     first_floor.add_path("networking_lab", networking_lab)
     first_floor.add_path("ground_floor", ground_floor)
 
@@ -287,59 +292,66 @@ def deserialize_player(serialized_player):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        registration_number = request.form['registration_number']
-        if registration_number in winners:
-            return render_template('teams.html', groups=groups)
-        else:
-            if registration_number in data:
-                player = Player(registration_number)
-                serialized_player = serialize_player(player)
-                session['player'] = serialized_player
-                return render_template('game_interface.html', registration_number=registration_number, name=player.name)
-    return render_template('index.html', winners=winners)
-
+    try:
+        if request.method == 'POST':
+            registration_number = request.form['registration_number']
+            if registration_number in winners:
+                return render_template('teams.html', groups=groups)
+            else:
+                if registration_number in data:
+                    player = Player(registration_number)
+                    serialized_player = serialize_player(player)
+                    session['player'] = serialized_player
+                    return render_template('game_interface.html', registration_number=registration_number, name=player.name)
+        return render_template('index.html', winners=winners)
+    except:
+        return render_template('index.html', winners=winners)
 
 @app.route('/play_game', methods=['POST'])
 def play_game():
-    global game
-    game_output = []
-    serialized_player = session.get('player')
+    try:
+        global game
+        game_output = []
+        serialized_player = session.get('player')
 
-    if serialized_player is None:
-        return "Session expired. Please start again."
+        if serialized_player is None:
+            return jsonify({'game_output':"ERROE 505"})
+            #return render_template('index.html', winners=winners)
 
-    player = deserialize_player(serialized_player)
-    user_input = request.form['user_input']
-   
-    if user_input == "ls":
-        game_output.append("You have several paths available: " + ", ".join(game.locations[player.current_location].paths.keys()))
-        game_output.append("Someone is here to chat: " + str(game.locations[player.current_location].character))
-    elif user_input == "pwd":
-        game_output.append(f"Current location: {game.locations[player.current_location].name}")
-    elif user_input.startswith("less"):
-        item = user_input.split(" ", 1)[-1]
-        character = game.locations[player.current_location].get_character()
-        if character and item.lower() == character.lower():
-            game_output.append(game.interact_with_character(player.current_location))
-        else:
-            game_output.append(f"You can't interact with {item}.")
-    elif user_input == "cd ..":
-        game_output.append(player.move(".."))
-    elif "cd " in user_input:
-        game_output.append(player.move(user_input.split()[-1]))
-    else:
-        game_output.append("Invalid command. Available actions: ['cd ..', 'ls', 'pwd', 'less', 'cls']")
+        player = deserialize_player(serialized_player)
+        user_input = request.form['user_input']
     
-    # Check if the player has won the game
-    if game.locations[player.current_location].name == "top_floor_lab":
-        winners.append(player.registration_number)
-        game_output.append("Congratulations! You've won the game!")
+        if user_input == "ls":
+            game_output.append("You have several paths available: " + ", ".join(game.locations[player.current_location].paths.keys()))
+            game_output.append("Someone is here to chat: " + str(game.locations[player.current_location].character))
+        elif user_input == "pwd":
+            game_output.append(f"Current location: {game.locations[player.current_location].name}")
+        elif user_input.startswith("less"):
+            item = user_input.split(" ", 1)[-1]
+            character = game.locations[player.current_location].get_character()
+            if character and item.lower() == character.lower():
+                game_output.append(game.interact_with_character(player.current_location))
+            else:
+                game_output.append(f"You can't interact with {item}.")
+        elif user_input == "cd ..":
+            game_output.append(player.move(".."))
+        elif "cd " in user_input:
+            game_output.append(player.move(user_input.split()[-1]))
+        else:
+            game_output.append("Invalid command. Available actions: ['cd ..', 'ls', 'pwd', 'less', 'cls']")
         
-    serialized_player = serialize_player(player)
-    session['player'] = serialized_player
-    #return render_template('game_interface.html', registration_number=player.registration_number, game_output=game_output)
-    return jsonify({'game_output': game_output})
+        # Check if the player has won the game
+        if game.locations[player.current_location].get_character == "Prof. Ragel":
+            winners.append(player.registration_number)
+            log(player.registration_number)
+            game_output.append("Congratulations! You've won the game!")
+            
+        serialized_player = serialize_player(player)
+        session['player'] = serialized_player
+        #return render_template('game_interface.html', registration_number=player.registration_number, game_output=game_output)
+        return jsonify({'game_output': game_output})
+    except:
+       return jsonify({'game_output':"ERROE 505"})
 
 # Route to generate a random number
 @app.route('/generate_number', methods=['GET'])
@@ -360,6 +372,7 @@ def generate_number():
         num = random.randint(1, 10)
     groups[num][gender] -= 1
     groups[num][2].append(player.registration_number)
+    log(player.registration_number+","+str(num))
     print(num)
     return jsonify({'number': num})
 
