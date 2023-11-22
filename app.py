@@ -7,18 +7,18 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
 # The list to store winners by registration number
-winners = []
+winners = ['E/20/122', 'E/20/062', 'E/20/378', 'E/20/032', 'E/20/316', 'E/20/300', 'E/20/361', 'E/20/346', 'E/20/366', 'E/20/439', 'E/20/377', 'E/20/173','E/20/094', 'E/20/318']
 groups = {
-    1: [6, 3, []],
-    2: [6, 3, []],
-    3: [7, 2, []],
-    4: [7, 2, []],
-    5: [7, 2, []],
-    6: [7, 2, []],
+    1: [4, 3, ['E/20/032', 'E/20/318']],
+    2: [5, 1, ['E/20/300', 'E/20/346', 'E/20/439']],
+    3: [7, 1, ['E/20/122']],
+    4: [6, 2, ['E/20/094']],
+    5: [6, 0, ['E/20/377', 'E/20/062', 'E/20/316']],
+    6: [7, 0, ['E/20/378', 'E/20/173']],
     7: [7, 2, []],
     8: [7, 2, []],
     9: [7, 2, []],
-    10: [7, 2, []]
+    10: [5, 2, ['E/20/366', 'E/20/361']]
 }
 data = {}
 girls = 0
@@ -89,11 +89,7 @@ class Game:
     #         print("Location not found.")
 
     def print_current_description(self, current_location):
-<<<<<<< HEAD
         return self.locations[current_location].get_description()
-=======
-        return locationscurrent_location.get_description()
->>>>>>> a69615bdf9a37df13121f9b4a22e759c62136517
 
     def interact_with_character(self, current_location):
         character = self.locations[current_location].get_character()
@@ -104,7 +100,6 @@ class Game:
 
     def move(self, direction, current_location, previous_path):
         if direction == "..":
-<<<<<<< HEAD
             print(previous_path)
             if self.locations[current_location].name == "outside":
                 return -1
@@ -125,23 +120,6 @@ class Game:
             # if path not in self.previous_path:
             #     self.previous_path.append(path)
             #return self.print_current_description()
-=======
-            if len(self.previous_path) > 1:
-                path = self.previous_path.pop()
-                self.set_current_location(path)
-                return self.print_current_description()
-            if self.current_location.name == "Outside":
-                return "Cannot go back from here."
-            else:
-                self.set_current_location("Outside")
-                return self.print_current_description()
-        elif direction in self.current_location.paths:
-            path = self.current_location.paths[direction].name
-            self.set_current_location(path)
-            self.previous_path.append(path)
-            print(self.previous_path)
-            return self.print_current_description()
->>>>>>> a69615bdf9a37df13121f9b4a22e759c62136517
         else:
             return -2
 
@@ -151,7 +129,6 @@ class Player:
         self.registration_number = registration_number
         self.name = data[registration_number]["name"]
         self.gender = data[registration_number]["gender"]
-<<<<<<< HEAD
         self.current_location = "outside"
         self.previous_path = ["outside"]
     
@@ -164,12 +141,6 @@ class Player:
         self.previous_path.append(path)
         self.current_location = path
         return game.print_current_description(path)
-=======
-        self.current_location = "outside"  # Set the initial location to outside
-
-    def move_to_location(self, location_name):
-        self.current_location = location_name
->>>>>>> a69615bdf9a37df13121f9b4a22e759c62136517
 
 def initialize_game():
     global game 
@@ -178,7 +149,6 @@ def initialize_game():
 
     # Create locations
     outside = Location("outside", 
-<<<<<<< HEAD
         "Hey there Hunter,\n Welcome to the department's doorstep! Exciting times await you inside. The key to winning lies in uncovering hidden clues scattered throughout. Chat with people, tinker with objects; they'll give you some hints. Your ticket to victory? Explore the department, unravel the hidden clues, and they'll guide you straight to triumph.\n P.S. The first clue awaits in the welcome letter. \nGood luck!",
         "welcome_letter",
         "Greetings, knowledge seekers! Your journey begins on the ground floor, where the Open Lab and Front desk is situated. Sahan Nimantha who is in the Open Lab and Mr. Wasundara who is at the front desk are your guides. Choose your path wisely!"
@@ -265,77 +235,16 @@ def initialize_game():
                           "Congratulations! You've won the game!"
                           )                   
                                     
-=======
-        "Hey there Hunter,\n Welcome to the department's doorstep! Exciting times await you inside. The key to winning lies in uncovering hidden clues scattered throughout. Chat up people, tinker with objects; they'll drop hints. Your ticket to victory? Explore the department, unravel the hidden clues, and they'll guide you straight to triumph.\n P.S. The first clue awaits in the welcome letter. \nGood luck!",
-        "Welcome Letter",
-        "Greetings, knowledge seekers! Your journey begins on the ground floor, where the Open Lab and Front desk is situated. Sahan Nimantha is in the Open Lab and Mr. X is at the front desk are your guides. Choose your path wisely!")
-    ground_floor = Location("ground_floor",
-                            "The ground floor welcomes you to the heart of the computer engineering department. Here, you'll find the Front Desk, a hub of general information, and the Open Lab, a dynamic space for study and discussions. The air is buzzing with curiosity and the hum of engaged minds",
-                            )
-    first_floor = Location("first_floor",
-                           " As you ascend to the first floor, you step into a realm where knowledge takes tangible form. Lab 2 is a space where programming labs come to life, filled with the energy of practical application. The Computer Networking Lab, adjacent to it, is a gateway to the world of data transfer and communication."
-                          )
-    second_floor = Location("second_floor",
-                            "The second floor unfolds with the Electronics Lab, a haven for hardware enthusiasts where circuits, wires, and hardware dreams come alive. Adjacent to it is the Discussion Room, a collaborative space where ideas flow freely, creating an atmosphere of shared knowledge.")
-    third_floor = Location("third_floor",
-                           "On the third floor, creativity blossoms in the ESCAL Makerspace. This vibrant space is a playground for innovation, equipped with tools for 3D printing, soldering, and collaborative projects. Here, students bring their ideas to life.")
-    fourth_floor = Location("fourth_floor",
-                            "On fourth floor hosts computer labs and the Server Room, a mysterious space filled with the rhythmic hum of servers. It's a realm where data flows, and secrets are concealed within the screens of computers.")
-
-    front_desk = Location("front_desk",
-                          "Welcome, explorer! If you lean towards technology, venture into the department. Alternatively, for general information, stay on the ground floor",
-                        "Mr. X",
-                        "If you're drawn to the practical side of computer engineering, where labs come to life, ascend the stairs with eager might, Kavindu's wisdom will guide your quest; listen well to what he suggests."
-                        )
-    open_lab = Location("open_lab",
-                        "In this open space, discussions thrive.",
-                        "Sahan Nimantha",
-                        "Ah, welcome! The Open Lab is a vibrant space for discussions and study, filled with the hum of curiosity. Connect the dots in networking's spree, where Dr. Asitha molds minds like a sea. In the lab of networks, your clue awaits; unravel the code, open the gates")   
-
-    networking_lab = Location("Networking Lab", 
-        "Ascending to the first floor, the ambiance changes to the hum of technology. The Networking Lab, a haven for connectivity experiments, is filled with rows of computers and arrays of wires, offering glimpses into the realm of networking and digital interconnection. Tucked amidst the devices that power the digital world.", 
-        "Dr. Asitha", 
-        "In the realm of networks, Dr. Asitha bestows. Seek his wisdom about connections and nodes. His hint leads to another, where technology flows.")
-    lab2 = Location("Lab 2", 
-        "Lab2, a room filled with prototype models, microcontrollers, and intricate circuitry spread across workstations.", 
-        "Kavindu", 
-        "The third clue guides you to the MakerSpace on the 3rd floor.")
-    discussion_room = Location("Discussion Room", 
-        "You are in Lab1 where Kavindu is an instructor.", 
-        "Kavindu", 
-        "The third clue guides you to the MakerSpace on the 3rd floor.")    
-    lab1 = Location("Lab1", 
-        "You are in Lab1 where Kavindu is an instructor.", 
-        "Kavindu", 
-        "The third clue guides you to the MakerSpace on the 3rd floor.")
-    escal = Location("ESCAL", 
-        "Enter the ESCAL Room, a futuristic space resonating with the clinks of metal and the whirring of machinery. This innovative hub houses cutting-edge tools and resources.", 
-        "Robot", 
-        "The fourth clue indicates the top floor lab where Prof. Roshan is.")
-    top_floor_lab = Location("Top_Floor_Lab", 
-        "You are in the top floor lab with Prof. Roshan.", 
-        "Prof. Roshan", 
-        "Congratulations! You found the ticket!")
-
->>>>>>> a69615bdf9a37df13121f9b4a22e759c62136517
     # Add locations to the game
     game.add_location(outside)
     game.add_location(ground_floor)
     game.add_location(first_floor)
     game.add_location(second_floor)
     game.add_location(third_floor)
-<<<<<<< HEAD
     game.add_location(fourth_floor)
     game.add_location(front_desk)
     game.add_location(open_lab)
     game.add_location(lab2)
-=======
-    game.add_location(first_floor)
-
-    game.add_location(front_desk)
-    game.add_location(open_lab)
-
->>>>>>> a69615bdf9a37df13121f9b4a22e759c62136517
     game.add_location(networking_lab)
     game.add_location(electronics_lab)
     game.add_location(discussion_room)
@@ -345,7 +254,6 @@ def initialize_game():
     game.add_location(prof_ragel)
 
     # Set paths between locations
-<<<<<<< HEAD
     #outside.add_path("front_desk", front_desk)
     outside.add_path("ground_floor", ground_floor)
     
@@ -385,37 +293,6 @@ def initialize_game():
 
     # Set the initial location
     #game.set_current_location("First Floor",)
-=======
-    outside.add_path("ground_floor", ground_floor)
-
-    ground_floor.add_path("first_floor", first_floor)
-    ground_floor.add_path("outside", outside)
-    ground_floor.add_path("front_desk", front_desk)
-    ground_floor.add_path("open_lab", open_lab)
-
-    front_desk.add_path("ground_floor", ground_floor)
-
-    open_lab.add_path("ground_floor", ground_floor)
-
-    first_floor.add_path("second_floor", second_floor)
-    first_floor.add_path("ground_floor", ground_floor)
-
-    second_floor.add_path("third_floor", third_floor)
-    second_floor.add_path("first_floor", first_floor)
-    
-    third_floor.add_path("fourth_floor", fourth_floor)
-    third_floor.add_path("second_floor", second_floor)
-
-    networking_lab.add_path("lab1", lab1)
-    lab1.add_path("makerspace", escal)
-    lab1.add_path("networking_lab", networking_lab)
-    escal.add_path("top_floor_lab", top_floor_lab)
-    escal.add_path("lab1", lab1)
-    top_floor_lab.add_path("makerspave", escal)
-
-    # Set the initial location
-    game.set_current_location("outside")
->>>>>>> a69615bdf9a37df13121f9b4a22e759c62136517
 
     #return game
 
@@ -499,8 +376,17 @@ def generate_number():
 
     if serialized_player is None:
         return "Session expired. Please start again."
-
+    
     player = deserialize_player(serialized_player)
+
+    regnum = player.registration_number
+    print(regnum)
+    if regnum in winners:
+        for i in groups.keys():
+            for j in groups[i][2]:
+                if j == regnum:
+                    num = i
+                    return jsonify({'number': num})
 
     num = random.randint(1, 10)
     if player.gender == 'M':
@@ -510,7 +396,7 @@ def generate_number():
     while not groups[num][gender]:
         num = random.randint(1, 10)
     groups[num][gender] -= 1
-    print(player.registration_number)
+   
     winners.append(player.registration_number)
     groups[num][2].append(player.registration_number)
     log(player.registration_number+","+str(num))
