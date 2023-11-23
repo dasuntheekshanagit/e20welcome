@@ -149,82 +149,91 @@ def initialize_game():
 
     # Create locations
     outside = Location("outside", 
-        "Hey there Hunter,\n Welcome to the department's doorstep! Exciting times await you inside. The key to winning lies in uncovering hidden clues scattered throughout. Chat up people, tinker with objects; they'll drop hints. Your ticket to victory? Explore the department, unravel the hidden clues, and they'll guide you straight to triumph.\n P.S. The first clue awaits in the welcome letter. \nGood luck!",
-        "Welcome Letter",
-        "Greetings, knowledge seekers! Your journey begins on the ground floor, where the Open Lab and Front desk is situated. Sahan Nimantha is in the Open Lab and Mr. X is at the front desk are your guides. Choose your path wisely!")
+        "Hey there Hunter,\n Welcome to the department's doorstep! Exciting times await you inside. The key to winning lies in uncovering hidden clues scattered throughout. Chat with people, tinker with objects; they'll give you some hints. Your ticket to victory? Explore the department, unravel the hidden clues, and they'll guide you straight to triumph.\n P.S. The first clue awaits in the welcome letter. \nGood luck!",
+        "welcome_letter",
+        "Greetings, knowledge seekers! Your journey begins on the ground floor, where the Open Lab and Front desk is situated. Sahan Nimantha who is in the Open Lab and Mr. Wasundara who is at the front desk are your guides. Choose your path wisely!"
+        )
     
     ground_floor = Location("ground_floor",
                             "The ground floor welcomes you to the heart of the computer engineering department. Here, you'll find the Front Desk, a hub of general information, and the Open Lab, a dynamic space for study and discussions. The air is buzzing with curiosity and the hum of engaged minds",
                             )
     
     first_floor = Location("first_floor",
-                           " As you ascend to the first floor, you step into a realm where knowledge takes tangible form. Lab 2 is a space where programming labs come to life, filled with the energy of practical application. The Computer Networking Lab, adjacent to it, is a gateway to the world of data transfer and communication."
+                            " As you ascend to the first floor, you step into a realm where knowledge takes a tangible form. Lab 2 is a space where programming labs come to life, filled with the energy of practical application. The Computer Networking Lab, adjacent to it, is a gateway to the world of data transfer and communication."
                           )
    
     second_floor = Location("second_floor",
-                            "The second floor unfolds with the Electronics Lab, a haven for hardware enthusiasts where circuits, wires, and hardware dreams come alive. Adjacent to it is the Discussion Room, a collaborative space where ideas flow freely, creating an atmosphere of shared knowledge.")
+                            "The second floor unfolds with the Electronics Lab, a haven for hardware enthusiasts where circuits, wires, and hardware dreams come alive. Adjacent to it is the Discussion Room, a collaborative space where ideas flow freely, creating an atmosphere of shared knowledge."
+                            )
    
     third_floor = Location("third_floor",
-                           "On the third floor, creativity blossoms in the ESCAL Makerspace. This vibrant space is a playground for innovation, equipped with tools for 3D printing, soldering, and collaborative projects. Here, students bring their ideas to life.")
+                           "On the third floor, creativity blossoms in the ESCAL Makerspace. This vibrant space is a playground for innovation, equipped with tools for 3D printing, soldering, and collaborative projects. Here, students bring their ideas to a reality"
+                           )
    
     fourth_floor = Location("fourth_floor",
-                            "On fourth floor hosts computer labs and the Server Room, a mysterious space filled with the rhythmic hum of servers. It's a realm where data flows, and secrets are concealed within the screens of computers.")
+                            "On fourth floor hosts computer labs and the Server Room, a mysterious space filled with the rhythmic hum of servers. It's a realm where data flows, and secrets are concealed within the screens of computers."
+                            )
    
     front_desk = Location("front_desk",
-                          "Welcome, explorer! If you lean towards technology, venture into the department. Alternatively, for general information, stay on the ground floor",
-                        "Mr. X",
+                        "Welcome, explorer! If you lean towards technology, venture into the department. Alternatively, for general information, stay on the ground floor",
+                        "mr_wasundara",
                         "If you're drawn to the practical side of computer engineering, where labs come to life, ascend the stairs with eager might, Kavindu's wisdom will guide your quest; listen well to what he suggests."
                         )
     
     open_lab = Location("open_lab",
                         "In this open space, discussions thrive.",
-                        "Sahan Nimantha",
-                        "Ah, welcome! The Open Lab is a vibrant space for discussions and study, filled with the hum of curiosity. Connect the dots in networking's spree, where Dr. Asitha molds minds like a sea. In the lab of networks, your clue awaits; unravel the code, open the gates")               
-                   
+                        "sahan_nimantha",
+                        "Ah, welcome! The Open Lab is a vibrant space for discussions and study, filled with the hum of curiosity. Connect the dots in networking's spree, where Dr. Asitha molds minds like a sea. In the lab of networks, your clue awaits; unravel the code, open the gates"
+                        )    
     
     lab2 = Location("lab2",      
-                    "If you're drawn to the practical side of computer engineering, this is where programming labs come to life",
-                    "Mr. Kavindu",
-                    "Unleash your inner hardware enthusiast. Your journey continues in a space where circuits, wires, and hardware dreams are brought to life")
-    
+                     "If you're drawn to the practical side of computer engineering, this is where programming labs come to life",
+                    "mr_kavindu",
+                    "Unleash your inner hardware enthusiast. Your journey continues in a space where circuits, wires, and hardware dreams are brought to life"
+                    )
     
     networking_lab = Location("networking_lab",
                             "Connect with the world of data transfer and communication. This is the place where networking insights unfold and discussions about routers and switches take.",
-                            "Dr. Asitha",
-                            "For collaborative minds and focused discussions, ascend to the floor where ideas flow freely. Seek the place where the power of words and thoughts converge.")
+                            "mr_asitha",
+                            "For collaborative minds and focused discussions, ascend to the floor where ideas flow freely. Seek the place where the power of words and thoughts converge."
+                            )
     
     electronics_lab = Location("electronics_lab",
                                "In the Electronics Lab, hardware dreams come to life and circuits weave tales!",
-                               "Dr.Kamalanath",
-                               "Embark on a journey of creativity and innovation. A robotic ally awaits in a space where projects come to life. Head to the floor where 3D printing, soldering, and collaboration thrive")
+                               "dr_kamalanath",
+                               "Embark on a journey of creativity and innovation. A robotic ally awaits in a space where projects come to life. Head to the floor where 3D printing, soldering, and collaboration thrive"
+                               )
     
     discussion_room = Location("discussion_room",
-                               "The Discussion Room unfolds as a sanctuary for collaborative minds, where ideas dance in the air.",
-                               "Dr.Isuru",
-                               "Welcome! The Discussion Room fosters an atmosphere for discussions and focused study. As you explore collaborative minds, In the makerspace, where creativity blooms, a robotic ally awaits. Engage in conversation, unlocking the next chapter in your journey")
+                                "The Discussion Room unfolds as a sanctuary for collaborative minds, where ideas dance in the air.",
+                               "dr_isuru",
+                               "Welcome! The Discussion Room fosters an atmosphere for discussions and focused study. As you explore collaborative minds, In the makerspace, where creativity blooms, a robotic ally awaits. Engage in conversation, unlocking the next chapter in your journey"
+                               )
          
     makerspace = Location("makerspace",
                           "In the makerspace, where machines breathe, creativity blooms amidst 3D printing, soldering, and collaborative projects and many more",
-                          "Robot",
-                          "Beep boop!. Climb the stairs to the fourth floor,to the server's abode, where a computer hums in binary code. Decode the message, a clue to unfold, leading you to the ticket of stories untold")
+                          "robot",
+                          "Beep boop!. Climb the stairs to the fourth floor,to the server's abode, where a computer hums in binary code. Decode the message, a clue to unfold, leading you to the ticket of stories untold"
+                          )
     
     
     top_floor_lab = Location("top_floor_lab",
-                             "If you have an inclination towards the hands-on aspects of computer engineering, this is the space where programming labs come to life.",
-                             "Dr.Damayanthi",
-                             "At the pinnacle of knowledge, I await your arrival. Engage in conversation, and the grand prize shall be revealed by Professor Ragel")
-    
+                              "If you have an inclination towards the hands-on aspects of computer engineering, this is another space where programming labs come to life.",
+                             "dr_damayanthi",
+                             "At the pinnacle of knowledge, I await your arrival. Engage in conversation, and the grand prize shall be revealed by Professor Ragel"
+                            )
     
     server_room = Location("server_room",
-                           "This is where servers hum in rhythmic unity and the place where data flows, ",
-                           "Server",
-                           "Within the rhythmic hum of servers, a computer screen holds the key. Decode the cryptic message to unveil the path to the Dr.Damayanthi, where your last clue awaits")
-                               
+                            "This is where servers hum in rhythmic unity and the place where data flows, ",
+                           "server",
+                           "Within the rhythmic hum of servers, a computer screen holds the key. Decode the cryptic message to unveil the path to the Dr.Damayanthi, where your last clue awaits"
+                           )      
                    
     prof_ragel = Location("ground_floor_office",
                           "The ground floor welcomes you to the heart of the computer engineering department. Here, you'll find the Front Desk, a hub of general information, and the Open Lab, a dynamic space for study and discussions. The air is buzzing with curiosity and the hum of engaged minds",
-                          "Prof. Ragel",
-                          "Congratulations! You've won the game!")                     
+                          "prof_ragel",
+                          "Congratulations! You've won the game!"
+                          )                   
                                     
     # Add locations to the game
     game.add_location(outside)
@@ -276,8 +285,11 @@ def initialize_game():
 
     fourth_floor.add_path("server_room", server_room)
     fourth_floor.add_path("top_floor_lab",top_floor_lab)
-    fourth_floor.add_path("ground_floor_office",prof_ragel)
+    #fourth_floor.add_path("ground_floor_office",prof_ragel)
     fourth_floor.add_path("third_floor", third_floor)
+
+    top_floor_lab.add_path("ground_floor_office",prof_ragel)
+    server_room.add_path("fourth_floor", fourth_floor)
 
     # Set the initial location
     #game.set_current_location("First Floor",)
@@ -292,9 +304,11 @@ def deserialize_player(serialized_player):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    global winners
     try:
         if request.method == 'POST':
             registration_number = request.form['registration_number']
+            print(registration_number, winners)
             if registration_number in winners:
                 return render_template('teams.html', groups=groups)
             else:
@@ -309,6 +323,7 @@ def index():
 
 @app.route('/play_game', methods=['POST'])
 def play_game():
+    global winners
     try:
         global game
         game_output = []
@@ -342,7 +357,8 @@ def play_game():
         
         # Check if the player has won the game
         if game.locations[player.current_location].get_character == "Prof. Ragel":
-            winners.append(player.registration_number)
+            print(player.registration_number)
+            #winners.append(player.registration_number)
             log(player.registration_number)
             game_output.append("Congratulations! You've won the game!")
             
@@ -360,8 +376,17 @@ def generate_number():
 
     if serialized_player is None:
         return "Session expired. Please start again."
-
+    
     player = deserialize_player(serialized_player)
+
+    regnum = player.registration_number
+    print(regnum)
+    if regnum in winners:
+        for i in groups.keys():
+            for j in groups[i][2]:
+                if j == regnum:
+                    num = i
+                    return jsonify({'number': num})
 
     num = random.randint(1, 10)
     if player.gender == 'M':
@@ -371,6 +396,8 @@ def generate_number():
     while not groups[num][gender]:
         num = random.randint(1, 10)
     groups[num][gender] -= 1
+   
+    winners.append(player.registration_number)
     groups[num][2].append(player.registration_number)
     log(player.registration_number+","+str(num))
     print(num)
